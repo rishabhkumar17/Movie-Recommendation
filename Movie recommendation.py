@@ -31,4 +31,17 @@ plt.figure(figsize=(10,6))
 plt.hist(ratings['num of ratings'], bins = 70)
 
 sns.jointplot(x='rating',y='num of ratings',data=ratings,alpha=0.5)
-plt.show()
+#plt.show()
+
+# Creating Movie Recommendation 
+
+moviemat = df.pivot_table(index='user_id',columns='title',values='rating')
+
+starwars_user_ratings = moviemat['Star Wars (1977)']
+similar_to_starwars = moviemat.corrwith(starwars_user_ratings)
+
+corr_starwars = pd.DataFrame(similar_to_starwars, columns=['Correlation'])
+
+corr_starwars.dropna(inplace=True)
+
+print(corr_starwars)
