@@ -42,6 +42,22 @@ similar_to_starwars = moviemat.corrwith(starwars_user_ratings)
 
 corr_starwars = pd.DataFrame(similar_to_starwars, columns=['Correlation'])
 
-corr_starwars.dropna(inplace=True)
+corr_starwars.dropna(inplace=True) # Remove the NaN values
 
-print(corr_starwars)
+corr_starwars = corr_starwars.join(ratings['num of ratings'])
+corr_starwars[corr_starwars['num of ratings']>100].sort_values('Correlation', ascending=False)
+
+# prediction Function
+
+def predict_movies(movie_name):
+	movie_user_ratings = moviemat[movie_name]
+	similar_to_movie = moviemat.corrwith(movie_user_ratings)
+
+	corr_movie = pd.DataFrame(similar_to_movie, columns=['Correlation'])
+	corr_movie.dropna(inplace=True)
+
+	corr_movie = corr_movie.join(ratings['num of ratings'])
+	predictions = corr_movie[corr_movie['num of ratings']>100].sort_values('Correlation', ascending=False)
+
+	return predictions
+
