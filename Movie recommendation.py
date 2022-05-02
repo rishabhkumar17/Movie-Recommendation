@@ -61,3 +61,5 @@ def predict_movies(movie_name):
 
 	return predictions
 
+predictions = predict_movies("Titanic (1997)")
+print(predictions.head())
