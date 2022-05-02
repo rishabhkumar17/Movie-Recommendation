@@ -27,8 +27,8 @@ ratings = pd.DataFrame(df.groupby('title').mean()['rating'])
 
 ratings['num of ratings'] = pd.DataFrame(df.groupby('title').count()['rating'])
 
-#plt.figure(figsize=(10,6))
-#plt.hist(ratings['num of ratings'], bins = 70)
+plt.figure(figsize=(10,6))
+plt.hist(ratings['num of ratings'], bins = 70)
 
 sns.jointplot(x='rating',y='num of ratings',data=ratings,alpha=0.5)
 plt.show()
